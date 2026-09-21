@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getCart, updateCartItem, removeCartItem } from '../api/cart.js'
+import { createCheckoutSession } from '../api/checkout.js'
 
 function Cart() {
   const [cart, setCart] = useState({ items: [], total: '0' })
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     loadCart()
@@ -24,6 +26,18 @@ function Cart() {
   const onRemove = async (itemId) => {
     await removeCartItem(itemId)
     loadCart()
+  }
+
+  const onCheckout = async () => {
+    setError('')
+    const data = await createCheckoutSession()
+
+    if (data.error) {
+      setError(data.error)
+      return
+    }
+
+    window.location.href = data.url
   }
 
   if (loading) {
@@ -56,6 +70,8 @@ function Cart() {
         ))}
       </ul>
       <p>Total: ${cart.total}</p>
+      <button onClick={onCheckout}>Checkout</button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   )
 }
