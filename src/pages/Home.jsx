@@ -16,7 +16,7 @@ function Home() {
       {user ? (
         <div>
           <p>Logged in as {user.name} ({user.email})</p>
-          <p><Link to="/cart">View cart</Link></p>
+          <p><Link to="/cart">View cart</Link> | <Link to="/orders">My orders</Link></p>
           <button onClick={logout}>Log out</button>
         </div>
       ) : (
