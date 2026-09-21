@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { API_ENDPOINT } from '../api/index.js'
+import { useAuth } from '../context/AuthContext.jsx'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const { setUser } = useAuth()
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -26,6 +28,7 @@ function Login() {
       return
     }
 
+    setUser(data.user)
     navigate('/')
   }
 
