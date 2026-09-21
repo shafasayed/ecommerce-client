@@ -6,6 +6,7 @@ import Products from './pages/Products.jsx'
 import ProductDetails from './pages/ProductDetails.jsx'
 import Cart from './pages/Cart.jsx'
 import CheckoutSuccess from './pages/CheckoutSuccess.jsx'
+import RequireAuth from './components/RequireAuth.jsx'
 
 function App() {
   return (
@@ -15,8 +16,22 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/products" element={<Products />} />
       <Route path="/products/:id" element={<ProductDetails />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout/success" element={<CheckoutSuccess />} />
+      <Route
+        path="/cart"
+        element={
+          <RequireAuth>
+            <Cart />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/checkout/success"
+        element={
+          <RequireAuth>
+            <CheckoutSuccess />
+          </RequireAuth>
+        }
+      />
     </Routes>
   )
 }
