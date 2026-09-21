@@ -11,6 +11,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome to the store</h1>
+      <p><Link to="/products">Browse products</Link></p>
 
       {user ? (
         <div>
